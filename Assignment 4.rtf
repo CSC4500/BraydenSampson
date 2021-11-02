@@ -1,0 +1,73 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Drop Database If Exists TOED;\
+Create Database TOED;\
+Use TOED;\
+\
+Create Table Movies (\
+MovieID		int 		primary key,\
+M_name 		char(25) 	not null,\
+M_year 		date 		not null,\
+M_genre 	char(25) 	not null,\
+M_duration 	int 		not null,\
+TOED_rating int 		not null,\
+User_rating int 		not null\
+);\
+\
+Create Table Shows (\
+ShowID 		int 		primary key,\
+S_name 		char(25) 	not null,\
+S_year 		date 		not null,\
+S_genre 	char(25) 	not null,\
+S_episodes 	int 		not null,\
+TOED_rating int 		not null,\
+User_rating int 		not null\
+);\
+\
+Create Table Director (\
+DirectorID 	int 		primary key,\
+D_fname 	char(25) 	not null,\
+D_lname 	char(25) 	not null,\
+D_DOB 		date 		not null\
+);\
+\
+Create Table Actor (\
+ActorID 	int 		primary key,\
+A_fname 	char(25) 	not null,\
+A_lname 	char(25) 	not null,\
+A_DOB 		date 		not null\
+);\
+\
+Create Table Movie_Director (\
+MovieID 	int 		not null,\
+DirectorID 	int 		not null,\
+Constraint FK_MDMovie Foreign Key (MovieID) References Movies(MovieID),\
+Constraint FK_MDDirector Foreign Key (DirectorID) References Director(DirectorID),\
+Constraint PK_MD Primary Key (MovieID,DirectorID));\
+\
+Create Table Show_Director (\
+ShowID 		int 		not null,\
+DirectorID 	int 		not null,\
+Constraint FK_SDShow Foreign Key (ShowID) References Shows(ShowID),\
+Constraint FK_SDDirector Foreign Key (DirectorID) References Director(DirectorID),\
+Constraint PK_SD Primary Key (ShowID,DirectorID));\
+\
+Create Table Movie_Role (\
+MovieID 	int 		not null,\
+ActorID 	int 		not null,\
+Constraint FK_MRMovie Foreign Key (MovieID) References Movies(MovieID),\
+Constraint FK_MRActor Foreign Key (ActorID) References Actor(ActorID),\
+Constraint PK_MR Primary Key (MovieID,ActorID));\
+\
+Create Table Show_Role (\
+ShowID 		int 		not null,\
+ActorID 	int 		not null,\
+Constraint FK_SRShow Foreign Key (ShowID) References Shows(ShowID),\
+Constraint FK_SRActor Foreign Key (ActorID) References Actor(ActorID),\
+Constraint PK_SR Primary Key (ShowID,ActorID));\
+}
